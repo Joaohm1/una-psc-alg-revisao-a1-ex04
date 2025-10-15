@@ -1,0 +1,63 @@
+
+public class SimuladorTributario {
+
+    
+    public static double calcularImpostoAntigo(double valorFaturamento, int aliquotaBase) {
+        return valorFaturamento * (aliquotaBase / 100.0);
+    }
+
+    public static double calcularImpostoProposto(double valorFaturamento, int aliquotaProposta) {
+        return valorFaturamento * (aliquotaProposta / 100.0);
+    }
+
+    public static double calcularDiferenca(double impostoAntigo, double impostoProposto) {
+        return Math.abs(impostoProposto - impostoAntigo);
+    }
+
+   
+    public void statusDialogo(boolean acessoAoGoverno) {
+        if (acessoAoGoverno) {
+            System.out.println("STATUS: Diálogo aberto. Há espaço para negociação.");
+        } else {
+            System.out.println("STATUS: Fintechs reclamam de falta de acesso ao governo. Risco de derrota política.");
+        }
+    }
+
+  
+    public static void main(String[] args) {
+        // Valor de faturamento de exemplo (50.000.000,00)
+        double faturamento = 50_000_000.00;
+
+        // Suposição: alíquota base atual (em %) — ajustar caso queira outro valor
+        int aliquotaBase = 10;
+
+        // Propostas (interpretei como alíquotas propostas de 9% e 15%)
+        int proposta1 = 9;
+        int proposta2 = 15;
+
+        // Cálculos para proposta de 9%
+        double impostoAntigo1 = calcularImpostoAntigo(faturamento, aliquotaBase);
+        double impostoProposto1 = calcularImpostoProposto(faturamento, proposta1);
+        double diferenca1 = calcularDiferenca(impostoAntigo1, impostoProposto1);
+
+        System.out.println("=== Simulação: Proposta de alíquota = " + proposta1 + " ===");
+        System.out.printf("Imposto (alíquota antiga):", aliquotaBase, impostoAntigo1);
+        System.out.printf("Imposto (alíquota proposta): ", proposta1, impostoProposto1);
+        System.out.printf("Diferença absoluta: ", diferenca1);
+
+        // Cálculos para proposta de 15%
+        double impostoAntigo2 = calcularImpostoAntigo(faturamento, aliquotaBase);
+        double impostoProposto2 = calcularImpostoProposto(faturamento, proposta2);
+        double diferenca2 = calcularDiferenca(impostoAntigo2, impostoProposto2);
+
+        System.out.println("\n=== Simulação: Proposta de alíquota = " + proposta2 + " ===");
+        System.out.printf("Imposto (alíquota antiga ): ", aliquotaBase, impostoAntigo2);
+        System.out.printf("Imposto (alíquota proposta ): ", proposta2, impostoProposto2);
+        System.out.printf("Diferença absoluta: ", diferenca2);
+
+        // Instanciar e chamar statusDialogo duas vezes (true e false)
+        SimuladorTributario sim = new SimuladorTributario();
+        sim.statusDialogo(true);
+        sim.statusDialogo(false);
+    }
+}
